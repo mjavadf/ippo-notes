@@ -1,3 +1,6 @@
 <resources>
   <string name="app_name">Ippo Notes</string>
+  <string name="loremIpsum_oneParagraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eu ante bibendum, vulputate ipsum nec, sollicitudin purus. Nullam maximus enim massa, quis auctor odio tempus quis. Sed aliquet purus vitae quam posuere eleifend. Fusce a maximus odio, ac dignissim ante.</string>
+  <string name="note_title">Note\'s Title</string>
+  <string name="icon">N</string>
 </resources>

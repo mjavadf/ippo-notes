@@ -9,10 +9,10 @@
     android:id="@+id/icon"
     android:layout_width="60dp"
     android:layout_height="60dp"
-    android:layout_marginRight="@dimen/margin"
+    android:layout_marginEnd="@dimen/margin"
     android:background="@drawable/background_note_icon"
     android:gravity="center"
-    android:text="N"
+    android:text="@string/icon"
     android:textColor="@color/whiteText"
     android:textSize="40sp" />
 
@@ -25,7 +25,7 @@
     android:lines="1"
     android:maxLines="1"
     android:singleLine="true"
-    android:text="Note's Title"
+    android:text="@string/note_title"
     android:textSize="@dimen/pageTitle" />
 
   <android.support.v7.widget.AppCompatTextView
