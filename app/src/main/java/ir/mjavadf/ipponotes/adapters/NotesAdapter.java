@@ -29,8 +29,10 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
   }
 
   @Override
-  public void onBindViewHolder(@NonNull NoteViewHolder noteViewHolder, int i) {
-
+  public void onBindViewHolder(@NonNull NoteViewHolder holder, int i) {
+    holder.title.setText(objects.get(i).getTitle());
+    holder.note.setText(objects.get(i).getNote());
+    holder.icon.setText(objects.get(i).getTitle().charAt(0));    // character in icon is first char of title
   }
 
   @Override
