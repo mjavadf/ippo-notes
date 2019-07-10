@@ -20,4 +20,9 @@
   <color name="blackTextDisable">#61000000</color>
   <color name="blackTextDividers">#1F000000</color>
   <!-- Text Colors-->
+
+  <!-- Gradient -->
+  <color name="gradient1_start">#0ba360</color>
+  <color name="gradient1_end">#3cba92</color>
+  <!-- Gradient -->
 </resources>
