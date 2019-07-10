@@ -15,7 +15,7 @@ import ir.mjavadf.ipponotes.objects.Note;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHolder> {
 
-  List<Note> objects;
+  private List<Note> objects;
 
   public NotesAdapter(List<Note> objects) {
     this.objects = objects;
@@ -32,7 +32,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
   public void onBindViewHolder(@NonNull NoteViewHolder holder, int i) {
     holder.title.setText(objects.get(i).getTitle());
     holder.note.setText(objects.get(i).getNote());
-    holder.icon.setText(objects.get(i).getTitle().charAt(0));    // character in icon is first char of title
+    holder.icon.setText(objects.get(i).getTitle().substring(0,1).toUpperCase());    // character in icon is first char of title
   }
 
   @Override
@@ -40,10 +40,10 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
     return objects.size();
   }
 
-  public class NoteViewHolder extends RecyclerView.ViewHolder {
+  class NoteViewHolder extends RecyclerView.ViewHolder {
     RelativeLayout parent;
     AppCompatTextView icon, title, note;
-    public NoteViewHolder(@NonNull View itemView) {
+    NoteViewHolder(@NonNull View itemView) {
       super(itemView);
 
       parent = itemView.findViewById(R.id.parent);
