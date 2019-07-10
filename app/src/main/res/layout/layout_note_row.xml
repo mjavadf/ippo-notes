@@ -1,43 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/parent"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:background="@color/whiteText"
-  android:padding="@dimen/padding"
-  android:id="@+id/parent">
+  android:layout_marginStart="@dimen/margin"
+  android:layout_marginTop="@dimen/margin0_5x"
+  android:layout_marginEnd="@dimen/margin"
+  android:layout_marginBottom="@dimen/margin0_5x"
+  android:background="?selectableItemBackground">
 
-  <android.support.v7.widget.AppCompatTextView
-    android:id="@+id/icon"
-    android:layout_width="60dp"
-    android:layout_height="60dp"
-    android:layout_marginEnd="@dimen/margin"
-    android:background="@drawable/background_note_icon"
-    android:gravity="center"
-    android:text="@string/icon"
-    android:textColor="@color/whiteText"
-    android:textSize="40sp" />
-
-  <android.support.v7.widget.AppCompatTextView
-    android:id="@+id/title"
-    android:layout_width="wrap_content"
+  <RelativeLayout
+    android:background="@color/whiteText"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/margin4dp"
-    android:layout_toEndOf="@id/icon"
-    android:lines="1"
-    android:maxLines="1"
-    android:singleLine="true"
-    android:text="@string/note_title"
-    android:textSize="@dimen/pageTitle" />
+    android:padding="@dimen/padding">
 
-  <android.support.v7.widget.AppCompatTextView
-    android:id="@+id/note"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_below="@id/title"
-    android:layout_toEndOf="@id/icon"
-    android:ellipsize="end"
-    android:maxLines="3"
-    android:text="@string/loremIpsum_oneParagraph"
-    android:textSize="@dimen/normalText" />
+    <android.support.v7.widget.AppCompatTextView
+      android:id="@+id/icon"
+      android:layout_width="60dp"
+      android:layout_height="60dp"
+      android:layout_centerVertical="true"
+      android:layout_marginEnd="@dimen/margin"
+      android:background="@drawable/background_note_icon"
+      android:gravity="center"
+      android:text="@string/icon"
+      android:textColor="@color/whiteText"
+      android:textSize="40sp" />
 
-</RelativeLayout>
+    <android.support.v7.widget.AppCompatTextView
+      android:id="@+id/title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="@dimen/margin4dp"
+      android:layout_toEndOf="@id/icon"
+      android:lines="1"
+      android:maxLines="1"
+      android:singleLine="true"
+      android:text="@string/note_title"
+      android:textSize="@dimen/pageTitle" />
+
+    <android.support.v7.widget.AppCompatTextView
+      android:id="@+id/note"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/title"
+      android:layout_toEndOf="@id/icon"
+      android:ellipsize="end"
+      android:maxLines="3"
+      android:text="@string/loremIpsum_oneParagraph"
+      android:textSize="@dimen/normalText" />
+
+  </RelativeLayout>
+
+</android.support.v7.widget.CardView>

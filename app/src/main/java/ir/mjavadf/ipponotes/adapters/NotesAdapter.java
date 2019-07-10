@@ -2,6 +2,7 @@ package ir.mjavadf.ipponotes.adapters;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatTextView;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,7 +42,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
   }
 
   class NoteViewHolder extends RecyclerView.ViewHolder {
-    RelativeLayout parent;
+    CardView parent;
     AppCompatTextView icon, title, note;
     NoteViewHolder(@NonNull View itemView) {
       super(itemView);
