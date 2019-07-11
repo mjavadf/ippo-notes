@@ -43,28 +43,32 @@
           android:layout_height="wrap_content"
           android:layout_alignParentBottom="true"
           android:gravity="end"
-          android:orientation="horizontal">
+          android:orientation="horizontal"
+          android:layout_marginBottom="@dimen/margin0_5x"
+          android:layout_marginTop="@dimen/margin0_5x">
 
           <android.support.design.button.MaterialButton
             android:id="@+id/cancelBTN"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin"
             android:text="@string/cancel"
             android:textColor="@color/blackText"
+            android:theme="@style/Theme.MaterialComponents.Light"
             app:backgroundTint="@color/transparent"
             app:strokeColor="@color/red_700"
-            app:strokeWidth="1dp"
-            android:theme="@style/Theme.MaterialComponents.Light"/>
+            app:strokeWidth="1dp" />
 
           <android.support.design.button.MaterialButton
-            android:theme="@style/Theme.MaterialComponents.Light"
             android:id="@+id/saveBTN"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin"
             android:backgroundTint="@color/colorAccent"
             android:text="@string/save"
-            android:textColor="@color/whiteText" />
+            android:textColor="@color/whiteText"
+            android:theme="@style/Theme.MaterialComponents.Light" />
         </LinearLayout>
 
         <LinearLayout
