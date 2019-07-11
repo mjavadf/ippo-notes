@@ -1,8 +1,6 @@
 package ir.mjavadf.ipponotes.app;
 
 public class db {
-  public static final String DATABASE_NAME = "IppoNotes";
-
   public static class Tables {
     public static final String NOTES = "Notes";
   }
