@@ -3,4 +3,10 @@
   <string name="loremIpsum_oneParagraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eu ante bibendum, vulputate ipsum nec, sollicitudin purus. Nullam maximus enim massa, quis auctor odio tempus quis. Sed aliquet purus vitae quam posuere eleifend. Fusce a maximus odio, ac dignissim ante.</string>
   <string name="note_title">Note\'s Title</string>
   <string name="icon">N</string>
+  <string name="new_note">New Note</string>
+  <string name="save">Save</string>
+  <string name="cancel">Cancel</string>
+  <string name="title_hint">Title</string>
+  <string name="note_hint">Type your note here …</string>
+  <string name="note_floating_label">Note</string>
 </resources>

@@ -7,6 +7,90 @@
   android:background="@color/colorPrimary"
   tools:context=".NoteEditorActivity">
 
+  <android.support.v7.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/margin">
 
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical">
+
+      <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/pageTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin0_5x"
+        android:layout_marginTop="@dimen/margin0_5x"
+        android:layout_marginEnd="@dimen/margin"
+        android:text="@string/new_note" />
+
+      <View
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:layout_marginTop="@dimen/margin0_5x"
+        android:layout_marginBottom="@dimen/margin0_5x"
+        android:background="@color/blackTextDividers" />
+
+      <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+          android:id="@+id/control"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_alignParentBottom="true"
+          android:gravity="end"
+          android:orientation="horizontal">
+
+          <android.support.design.button.MaterialButton
+            android:id="@+id/cancelBTN"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel"
+            android:textColor="@color/blackText"
+            app:backgroundTint="@color/transparent"
+            app:strokeColor="@color/red_700"
+            app:strokeWidth="1dp" />
+
+          <android.support.design.button.MaterialButton
+            android:id="@+id/saveBTN"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorAccent"
+            android:text="@string/save"
+            android:textColor="@color/whiteText" />
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_above="@id/control"
+          android:layout_marginStart="@dimen/margin0_5x"
+          android:layout_marginEnd="@dimen/margin0_5x"
+          android:orientation="vertical">
+
+          <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/titleET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/title_hint"
+            android:imeOptions="actionNext"
+            android:maxLines="1" />
+
+          <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/noteET"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="top"
+            android:hint="@string/note_hint"
+            app:met_floatingLabelText="@string/note_floating_label" />
+        </LinearLayout>
+      </RelativeLayout>
+    </LinearLayout>
+  </android.support.v7.widget.CardView>
 
 </RelativeLayout>
