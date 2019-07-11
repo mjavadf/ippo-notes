@@ -1,10 +1,12 @@
 package ir.mjavadf.ipponotes;
 
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +15,7 @@ import java.util.Objects;
 import ir.mjavadf.ipponotes.adapters.NotesAdapter;
 import ir.mjavadf.ipponotes.objects.Note;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
   RecyclerView recyclerView;
   FloatingActionButton addNote;
@@ -30,11 +32,20 @@ public class MainActivity extends AppCompatActivity {
   }
 
   private void initViews() {
-    addNote = findViewById(R.id.addNote);
     recyclerView = findViewById(R.id.recyclerView);
-
     adapter = new NotesAdapter(noteList);
     recyclerView.setAdapter(adapter);
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+    addNote = findViewById(R.id.addNote);
+    addNote.setOnClickListener(this);
+  }
+
+  @Override
+  public void onClick(View view) {
+    if (view == addNote) {
+      Intent intent = new Intent(this, NoteEditorActivity.class);
+      startActivity(intent);
+    }
   }
 }
