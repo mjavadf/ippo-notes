@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
-import android.widget.Toast;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
 
@@ -52,8 +51,8 @@ public class NoteEditorActivity extends AppCompatActivity implements View.OnClic
       boolean titleValidate = isInputValid(titleET);
       boolean noteValidate  = isInputValid(noteET);
       if (titleValidate && noteValidate) {
-        String title = titleET.getText().toString();
-        String note  = noteET.getText().toString();
+        String title = Objects.requireNonNull(titleET.getText()).toString();
+        String note  = Objects.requireNonNull(noteET.getText()).toString();
 
         ContentValues values = new ContentValues();
         values.put(db.Notes.TITLE, title);
@@ -67,7 +66,7 @@ public class NoteEditorActivity extends AppCompatActivity implements View.OnClic
   }
 
   private boolean isInputValid(MaterialEditText editText) {
-    if (editText.getText().toString().equals("")) {
+    if (Objects.requireNonNull(editText.getText()).toString().equals("")) {
       editText.setError("%s is empty".replace("%s", editText.getHint().toString()));
       return false;
     }
