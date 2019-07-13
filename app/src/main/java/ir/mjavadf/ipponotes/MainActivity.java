@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
   List<Note> noteList = new ArrayList<>();
   DBHelper dbHelper;
 
+  boolean isUpdate = false;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Objects.requireNonNull(getSupportActionBar()).hide();
 
     initViews();
+    isUpdate = true;
   }
 
   private void initViews() {
@@ -62,6 +65,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     cursor.close();
     return list;
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    updateList();
+  }
+
+  private void updateList (){
+    if (isUpdate) {
+      noteList.clear();
+      noteList.addAll(readData());
+      adapter.notifyDataSetChanged();
+    }
   }
 
   @Override
