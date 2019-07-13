@@ -7,7 +7,7 @@ public class Note {
 
   public Note() {}
 
-  public Note(String title, String note, long id, int mark) {
+  public Note(long id, String title, String note,  int mark) {
     this.title = title;
     this.note = note;
     this.id = id;
