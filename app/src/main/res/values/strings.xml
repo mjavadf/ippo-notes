@@ -7,6 +7,7 @@
   <string name="save">Save</string>
   <string name="cancel">Cancel</string>
   <string name="title_hint">Title</string>
-  <string name="note_hint">Type your note here …</string>
+  <string name="note_hint">Note</string>
   <string name="note_floating_label">Note</string>
+  <string name="title_error_empty">Title is empty.</string>
 </resources>

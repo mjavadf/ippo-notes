@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin"
             android:text="@string/cancel"
-            android:textColor="@color/blackText"
+            android:textColor="@color/red_700"
             android:theme="@style/Theme.MaterialComponents.Light"
             app:backgroundTint="@color/transparent"
             app:strokeColor="@color/red_700"

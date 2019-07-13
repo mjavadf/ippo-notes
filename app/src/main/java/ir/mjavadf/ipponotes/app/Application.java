@@ -3,7 +3,7 @@ package ir.mjavadf.ipponotes.app;
 import android.content.Context;
 
 public class Application extends android.app.Application {
-  Context context;
+  private static Context context;
 
   @Override
   public void onCreate() {
@@ -11,7 +11,7 @@ public class Application extends android.app.Application {
     context = this;
   }
 
-  public Context getContext() {
+  public static Context getContext() {
     return context;
   }
 }
