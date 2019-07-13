@@ -33,7 +33,7 @@ public class DBHelper extends SQLiteOpenHelper {
     String query =
             " CREATE TABLE IF NOT EXISTS " +
             db.Tables.NOTES + " ( " +
-            db.Notes.ID     + " INTEGER     PRIMARY KEY, " +
+            db.Notes.ID     + " LONG        PRIMARY KEY, " +
             db.Notes.TITLE  + " STRING,                  " +
             db.Notes.NOTE   + " STRING,                  " +
             db.Notes.MARK   + " INTEGER (1) DEFAULT (0)  " +

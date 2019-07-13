@@ -2,12 +2,12 @@ package ir.mjavadf.ipponotes.objects;
 
 public class Note {
   private String title, note;
-  private int id;
+  private long id;
   private int mark = 0;
 
   public Note() {}
 
-  public Note(String title, String note, int id, int mark) {
+  public Note(String title, String note, long id, int mark) {
     this.title = title;
     this.note = note;
     this.id = id;
@@ -30,11 +30,11 @@ public class Note {
     this.note = note;
   }
 
-  public int getId() {
+  public long getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(long id) {
     this.id = id;
   }
 
