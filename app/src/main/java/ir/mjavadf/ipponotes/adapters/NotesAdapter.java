@@ -1,5 +1,7 @@
 package ir.mjavadf.ipponotes.adapters;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.CardView;
@@ -7,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 
 import java.util.List;
 
@@ -17,9 +18,11 @@ import ir.mjavadf.ipponotes.objects.Note;
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHolder> {
 
   private List<Note> objects;
+  private Activity activity;
 
-  public NotesAdapter(List<Note> objects) {
+  public NotesAdapter(Activity activity, List<Note> objects) {
     this.objects = objects;
+    this.activity = activity;
   }
 
   @NonNull
@@ -41,7 +44,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
     return objects.size();
   }
 
-  class NoteViewHolder extends RecyclerView.ViewHolder {
+  class NoteViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     CardView parent;
     AppCompatTextView icon, title, note;
     NoteViewHolder(@NonNull View itemView) {
@@ -51,6 +54,14 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
       icon   = itemView.findViewById(R.id.icon);
       title  = itemView.findViewById(R.id.title);
       note   = itemView.findViewById(R.id.note);
+
+      parent.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+      Intent intent = new Intent(activity, ShowActivity.class);
+      activity.startActivity(intent);
     }
   }
 }

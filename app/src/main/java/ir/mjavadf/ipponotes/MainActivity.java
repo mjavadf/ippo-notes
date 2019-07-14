@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     dbHelper = new DBHelper(this);
     noteList = readData();
     recyclerView = findViewById(R.id.recyclerView);
-    adapter = new NotesAdapter(noteList);
+    adapter = new NotesAdapter(this, noteList);
     recyclerView.setAdapter(adapter);
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
