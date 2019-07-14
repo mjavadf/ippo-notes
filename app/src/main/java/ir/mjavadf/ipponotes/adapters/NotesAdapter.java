@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import ir.mjavadf.ipponotes.R;
+import ir.mjavadf.ipponotes.ShowActivity;
 import ir.mjavadf.ipponotes.objects.Note;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHolder> {

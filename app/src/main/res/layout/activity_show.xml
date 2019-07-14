@@ -1,9 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+  android:padding="@dimen/padding"
   tools:context=".ShowActivity">
 
-</android.support.constraint.ConstraintLayout>
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="100"
+    android:id="@+id/titleContainer">
+
+    <android.support.v7.widget.AppCompatTextView
+      android:layout_width="0dp"
+      android:id="@+id/title"
+      android:layout_height="wrap_content"
+      android:layout_weight="90"
+      android:text="@string/note_title"
+      android:textSize="@dimen/pageTitle"
+      android:layout_gravity="center"/>
+
+
+    <android.support.v7.widget.AppCompatImageView
+      android:layout_width="0dp"
+      android:layout_height="36dp"
+      android:layout_weight="10"
+      android:src="@drawable/ic_bookmark_active"
+      android:id="@+id/mark"/>
+
+  </LinearLayout>
+
+  <View
+    android:layout_width="match_parent"
+    android:layout_height="0.7dp"
+    android:layout_below="@id/titleContainer"
+    android:layout_marginTop="@dimen/margin0_5x"
+    android:background="@color/blackTextDividers"
+    android:id="@+id/divider"
+    android:layout_marginBottom="@dimen/margin0_5x"/>
+
+  <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/divider">
+
+    <android.support.v7.widget.AppCompatTextView
+      android:id="@+id/note"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@string/loremIpsum_oneParagraph"/>
+
+  </ScrollView>
+
+
+</RelativeLayout>

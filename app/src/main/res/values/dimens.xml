@@ -22,4 +22,6 @@
   <dimen name="inputText">16sp</dimen>
   <dimen name="smallText">12sp</dimen>
   <!-- Text Size -->
+
+  <dimen name="toolbar_elevation">4dp</dimen>
 </resources>
