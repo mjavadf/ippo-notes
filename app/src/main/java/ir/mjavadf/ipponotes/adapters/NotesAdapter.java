@@ -14,6 +14,7 @@ import java.util.List;
 
 import ir.mjavadf.ipponotes.R;
 import ir.mjavadf.ipponotes.ShowActivity;
+import ir.mjavadf.ipponotes.app.db;
 import ir.mjavadf.ipponotes.objects.Note;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHolder> {
@@ -61,7 +62,9 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
 
     @Override
     public void onClick(View v) {
+      Note object = objects.get(getAdapterPosition());
       Intent intent = new Intent(activity, ShowActivity.class);
+      intent.putExtra(db.Notes.ID, object.getId());
       activity.startActivity(intent);
     }
   }
