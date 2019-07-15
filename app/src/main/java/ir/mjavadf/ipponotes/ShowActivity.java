@@ -23,6 +23,7 @@ public class ShowActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_show);
+    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     init();
     readData();
