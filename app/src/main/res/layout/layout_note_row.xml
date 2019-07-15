@@ -21,7 +21,7 @@
       android:layout_height="60dp"
       android:layout_centerVertical="true"
       android:layout_marginEnd="@dimen/margin"
-      android:background="@drawable/background_note_icon"
+      android:background="@drawable/background_note_icon_unmarked"
       android:gravity="center"
       android:text="@string/icon"
       android:textColor="@color/whiteText"

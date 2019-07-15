@@ -24,8 +24,11 @@
   <!-- Text Colors-->
 
   <!-- Gradient -->
-  <color name="gradient1_start">#0ba360</color>
-  <color name="gradient1_end">#3cba92</color>
+  <color name="gradient_marked_start">#93F9B9</color>
+  <color name="gradient_marked_end">#1D976C</color>
+
+  <color name="gradient_unmarked_start">#4286f4</color>
+  <color name="gradient_unmarked_end">#373B44</color>
   <!-- Gradient -->
 
   <color name="red_700">#D32F2F</color>
