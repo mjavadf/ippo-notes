@@ -1,12 +1,20 @@
 package ir.mjavadf.ipponotes;
 
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.database.Cursor;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+
+import java.util.Objects;
 
 import ir.mjavadf.ipponotes.app.DBHelper;
 import ir.mjavadf.ipponotes.app.db;
@@ -23,7 +31,7 @@ public class ShowActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_show);
-    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
     init();
     readData();
@@ -50,22 +58,22 @@ public class ShowActivity extends AppCompatActivity {
       long id = getIntent().getLongExtra(db.Notes.ID, 2);
       Cursor cursor = dbHelper.get().rawQuery(
               " SELECT * FROM " + db.Tables.NOTES +
-                  " WHERE " + db.Notes.ID + " = " + id
+                      " WHERE " + db.Notes.ID + " = " + id
               , null);
 
       while (cursor.moveToNext()) {
         object.setId(id);
         object.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(db.Notes.TITLE)));
-        object.setNote (cursor.getString(cursor.getColumnIndexOrThrow(db.Notes.NOTE )));
-        object.setMark (cursor.getInt   (cursor.getColumnIndexOrThrow(db.Notes.MARK )));
+        object.setNote(cursor.getString(cursor.getColumnIndexOrThrow(db.Notes.NOTE)));
+        object.setMark(cursor.getInt(cursor.getColumnIndexOrThrow(db.Notes.MARK)));
       }
 
-        title.setText(object.getTitle());
-        note.setText(object.getNote());
+      title.setText(object.getTitle());
+      note.setText(object.getNote());
 
-        if (object.getMark() == 0)
-          markToggle.setImageResource(R.drawable.ic_bookmark_deactive);
-        else markToggle.setImageResource(R.drawable.ic_bookmark_active);
+      if (object.getMark() == 0)
+        markToggle.setImageResource(R.drawable.ic_bookmark_deactive);
+      else markToggle.setImageResource(R.drawable.ic_bookmark_active);
 
 
       cursor.close();
@@ -79,7 +87,7 @@ public class ShowActivity extends AppCompatActivity {
 
       ContentValues values = new ContentValues();
       values.put(db.Notes.MARK, object.getMark());
-      String [] whereArgs = {object.getId()+""};
+      String[] whereArgs = {object.getId() + ""};
       dbHelper.get().update(db.Tables.NOTES, values, db.Notes.ID + " = ? ", whereArgs);
     } else {
       object.setMark(0);
@@ -87,8 +95,48 @@ public class ShowActivity extends AppCompatActivity {
 
       ContentValues values = new ContentValues();
       values.put(db.Notes.MARK, object.getMark());
-      String [] whereArgs = {object.getId()+""};
+      String[] whereArgs = {object.getId() + ""};
       dbHelper.get().update(db.Tables.NOTES, values, db.Notes.ID + " = ? ", whereArgs);
     }
+  }
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    MenuInflater inflater = getMenuInflater();
+    inflater.inflate(R.menu.menu_show_activity, menu);
+    return super.onCreateOptionsMenu(menu);
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()) {
+      case R.id.edit_note:
+        Toast.makeText(this, "Edit", Toast.LENGTH_SHORT).show();
+        return true;
+      case R.id.delete_note: {
+
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this)
+                .setTitle("Delete Note")
+                .setMessage("Are you sure you want to delete this note?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                  @Override
+                  public void onClick(DialogInterface dialog, int which) {
+                    deleteNote();
+                  }
+                })
+                .setNegativeButton("No", null);
+        dialog.show();
+        return true;
+      }
+      default:
+        return super.onOptionsItemSelected(item);
+    }
+
+  }
+
+  private void deleteNote() {
+    String[] whereArgs = {object.getId() + ""};
+    dbHelper.get().delete(db.Tables.NOTES, db.Notes.ID + " = ? ", whereArgs);
+    finish();
   }
 }
