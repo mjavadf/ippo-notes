@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import java.util.List;
 
@@ -58,7 +59,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
   }
 
   class NoteViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-    CardView parent;
+    RelativeLayout parent;
     AppCompatTextView icon, title, note;
 
     NoteViewHolder(@NonNull View itemView) {
