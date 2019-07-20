@@ -1,5 +1,11 @@
 package ir.mjavadf.ipponotes.objects;
 
+import android.content.Context;
+import android.database.Cursor;
+
+import ir.mjavadf.ipponotes.app.DBHelper;
+import ir.mjavadf.ipponotes.app.db;
+
 public class Note {
   private String title, note;
   private long id;
@@ -44,5 +50,21 @@ public class Note {
 
   public void setMark(int mark) {
     this.mark = mark;
+  }
+
+  public static Note getNote(Context context, long id) {
+    Note object = new Note();
+    object.setId(id);
+    DBHelper dbHelper = new DBHelper(context);
+    String[] args = {id + ""};
+    Cursor cursor = dbHelper.get().rawQuery(" SELECT * FROM " + db.Tables.NOTES + " WHERE " + db.Notes.ID + " = ? " , args);
+    while (cursor.moveToNext()) {
+      object.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(db.Notes.TITLE)));
+      object.setNote(cursor.getString(cursor.getColumnIndexOrThrow(db.Notes.NOTE)));
+      object.setMark(cursor.getInt(cursor.getColumnIndexOrThrow(db.Notes.MARK)));
+    }
+    cursor.close();
+
+    return object;
   }
 }

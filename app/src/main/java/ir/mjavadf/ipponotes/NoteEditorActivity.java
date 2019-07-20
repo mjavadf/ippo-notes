@@ -14,13 +14,15 @@ import java.util.Objects;
 import ir.mjavadf.ipponotes.app.DBHelper;
 import ir.mjavadf.ipponotes.app.app;
 import ir.mjavadf.ipponotes.app.db;
+import ir.mjavadf.ipponotes.objects.Note;
 
 public class NoteEditorActivity extends AppCompatActivity implements View.OnClickListener {
 
   AppCompatTextView pageTitle;
-  MaterialButton cancelBTN,  saveBTN ;
-  MaterialEditText titleET,  noteET;
+  MaterialButton cancelBTN, saveBTN;
+  MaterialEditText titleET, noteET;
   DBHelper dbHelper;
+  boolean hasExtra;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -33,14 +35,23 @@ public class NoteEditorActivity extends AppCompatActivity implements View.OnClic
 
   private void init() {
     dbHelper = new DBHelper(this);
-    pageTitle   = findViewById(R.id.pageTitle);
-    titleET     = findViewById(R.id.titleET);
-    noteET      = findViewById(R.id.noteET);
+    pageTitle = findViewById(R.id.pageTitle);
+    titleET = findViewById(R.id.titleET);
+    noteET = findViewById(R.id.noteET);
 
-    saveBTN     = findViewById(R.id.saveBTN);
+    saveBTN = findViewById(R.id.saveBTN);
     saveBTN.setOnClickListener(this);
-    cancelBTN   = findViewById(R.id.cancelBTN);
+    cancelBTN = findViewById(R.id.cancelBTN);
     cancelBTN.setOnClickListener(this);
+
+    hasExtra = getIntent().hasExtra(db.Notes.ID);
+
+    if (hasExtra) {
+      pageTitle.setText(getResources().getString(R.string.edit_note));
+      Note object = Note.getNote(this, Objects.requireNonNull(getIntent().getExtras()).getLong(db.Notes.ID));
+      titleET.setText(object.getTitle());
+      noteET.setText(object.getNote());
+    }
   }
 
   @Override
@@ -49,17 +60,23 @@ public class NoteEditorActivity extends AppCompatActivity implements View.OnClic
       finish();
     else if (view == saveBTN) {
       boolean titleValidate = isInputValid(titleET);
-      boolean noteValidate  = isInputValid(noteET);
+      boolean noteValidate = isInputValid(noteET);
       if (titleValidate && noteValidate) {
         String title = Objects.requireNonNull(titleET.getText()).toString();
-        String note  = Objects.requireNonNull(noteET.getText()).toString();
+        String note = Objects.requireNonNull(noteET.getText()).toString();
 
         ContentValues values = new ContentValues();
         values.put(db.Notes.TITLE, title);
         values.put(db.Notes.NOTE, note);
-        values.put(db.Notes.MARK, 0);
-        long id = dbHelper.get().insert(db.Tables.NOTES, null, values);
-        app.log("Note Id: " + id);
+        if (!hasExtra) {
+          values.put(db.Notes.MARK, 0);
+          long id = dbHelper.get().insert(db.Tables.NOTES, null, values);
+          app.log("Note Id: " + id);
+        }
+        else {
+          dbHelper.get().update(db.Tables.NOTES, values, db.Notes.ID + " = " +
+                  Objects.requireNonNull(getIntent().getExtras()).getLong(db.Notes.ID), null);
+        }
         finish();
       }
     }

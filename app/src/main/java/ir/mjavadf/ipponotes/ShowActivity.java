@@ -2,17 +2,17 @@ package ir.mjavadf.ipponotes;
 
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import java.util.Objects;
 
@@ -111,7 +111,7 @@ public class ShowActivity extends AppCompatActivity {
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
       case R.id.edit_note:
-        Toast.makeText(this, "Edit", Toast.LENGTH_SHORT).show();
+        editNote();
         return true;
       case R.id.delete_note: {
 
@@ -134,9 +134,21 @@ public class ShowActivity extends AppCompatActivity {
 
   }
 
+  private void editNote() {
+    Intent intent = new Intent(this, NoteEditorActivity.class);
+    intent.putExtra(db.Notes.ID, object.getId());
+    startActivity(intent);
+  }
+
   private void deleteNote() {
     String[] whereArgs = {object.getId() + ""};
     dbHelper.get().delete(db.Tables.NOTES, db.Notes.ID + " = ? ", whereArgs);
     finish();
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    readData();
   }
 }
