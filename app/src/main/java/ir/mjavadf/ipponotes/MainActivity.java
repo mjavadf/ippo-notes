@@ -5,9 +5,13 @@ import android.database.Cursor;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
+import com.rengwuxian.materialedittext.MaterialEditText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +29,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
   NotesAdapter adapter;
   List<Note> noteList = new ArrayList<>();
   DBHelper dbHelper;
+  AppCompatImageView searchIcon;
 
   boolean isUpdate = false;
+
+  /* Search Box */
+  CardView searchBox;
+  MaterialEditText searchText;
+  AppCompatImageView closeSearchBox;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +58,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     addNote = findViewById(R.id.addNote);
     addNote.setOnClickListener(this);
+
+    searchIcon = findViewById(R.id.searchIcon);
+    /* Search Box */
+    searchIcon.setOnClickListener(this);
+    searchBox = findViewById(R.id.searchBox);
+    searchText = findViewById(R.id.searchText);
+    closeSearchBox = findViewById(R.id.closeSearchBox);
+    closeSearchBox.setOnClickListener(this);
   }
 
   private List<Note> readData() {
@@ -57,8 +75,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     while (cursor.moveToNext()) {
       long id = cursor.getLong(cursor.getColumnIndexOrThrow(db.Notes.ID));
       String title = cursor.getString(cursor.getColumnIndexOrThrow(db.Notes.TITLE));
-      String note  = cursor.getString(cursor.getColumnIndexOrThrow(db.Notes.NOTE));
-      int mark     = cursor.getInt(cursor.getColumnIndexOrThrow(db.Notes.MARK));
+      String note = cursor.getString(cursor.getColumnIndexOrThrow(db.Notes.NOTE));
+      int mark = cursor.getInt(cursor.getColumnIndexOrThrow(db.Notes.MARK));
 
       list.add(new Note(id, title, note, mark));
     }
@@ -73,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     updateList();
   }
 
-  private void updateList (){
+  private void updateList() {
     if (isUpdate) {
       noteList.clear();
       noteList.addAll(readData());
@@ -86,6 +104,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     if (view == addNote) {
       Intent intent = new Intent(this, NoteEditorActivity.class);
       startActivity(intent);
+    } else if (view == searchIcon) {
+      searchBox.setVisibility(View.VISIBLE);
+      searchText.requestFocus();
+    } else if (view == closeSearchBox) {
+      closeSearch();
     }
+  }
+
+  private void closeSearch() {
+    if (Objects.requireNonNull(searchText.getText()).toString().equals(""))
+      searchBox.setVisibility(View.GONE);
+    else
+      searchText.setText("");
+  }
+
+  @Override
+  public void onBackPressed() {
+    if (searchBox.getVisibility() == View.VISIBLE) {
+      closeSearch();
+    } else
+      super.onBackPressed();
   }
 }
