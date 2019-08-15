@@ -8,12 +8,12 @@ import ir.mjavadf.ipponotes.app.db;
 
 public class Note {
   private String title, note;
-  private long id;
+  private int id;
   private int mark = 0;
 
   public Note() {}
 
-  public Note(long id, String title, String note,  int mark) {
+  public Note(int id, String title, String note,  int mark) {
     this.title = title;
     this.note = note;
     this.id = id;
@@ -36,11 +36,11 @@ public class Note {
     this.note = note;
   }
 
-  public long getId() {
+  public int getId() {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(int id) {
     this.id = id;
   }
 
@@ -52,7 +52,7 @@ public class Note {
     this.mark = mark;
   }
 
-  public static Note getNote(Context context, long id) {
+  public static Note getNote(Context context, int id) {
     Note object = new Note();
     object.setId(id);
     DBHelper dbHelper = new DBHelper(context);

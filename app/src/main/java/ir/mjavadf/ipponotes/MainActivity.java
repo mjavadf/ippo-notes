@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             " WHERE " + db.Notes.TITLE + " LIKE '%" + text + "%' " +
             " OR    " + db.Notes.NOTE  + " LIKE '%" + text + "%' ", null);
     while (cursor.moveToNext()) {
-      long id = cursor.getLong(cursor.getColumnIndexOrThrow(db.Notes.ID));
+      int id = cursor.getInt(cursor.getColumnIndexOrThrow(db.Notes.ID));
       String title = cursor.getString(cursor.getColumnIndexOrThrow(db.Notes.TITLE));
       String note = cursor.getString(cursor.getColumnIndexOrThrow(db.Notes.NOTE));
       int mark = cursor.getInt(cursor.getColumnIndexOrThrow(db.Notes.MARK));

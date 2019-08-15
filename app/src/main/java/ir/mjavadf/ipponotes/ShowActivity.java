@@ -17,6 +17,7 @@ import android.view.View;
 import java.util.Objects;
 
 import ir.mjavadf.ipponotes.app.DBHelper;
+import ir.mjavadf.ipponotes.app.app;
 import ir.mjavadf.ipponotes.app.db;
 import ir.mjavadf.ipponotes.objects.Note;
 
@@ -33,6 +34,7 @@ public class ShowActivity extends AppCompatActivity {
     setContentView(R.layout.activity_show);
     Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
+    app.log("id is: " + getIntent().getIntExtra(db.Notes.ID, -1));
     init();
     readData();
   }
@@ -55,7 +57,7 @@ public class ShowActivity extends AppCompatActivity {
     object = new Note();
 
     if (getIntent().hasExtra(db.Notes.ID)) {
-      long id = getIntent().getLongExtra(db.Notes.ID, 2);
+      int id = getIntent().getIntExtra(db.Notes.ID, 2);
       Cursor cursor = dbHelper.get().rawQuery(
               " SELECT * FROM " + db.Tables.NOTES +
                       " WHERE " + db.Notes.ID + " = " + id

@@ -48,7 +48,7 @@ public class NoteEditorActivity extends AppCompatActivity implements View.OnClic
 
     if (hasExtra) {
       pageTitle.setText(getResources().getString(R.string.edit_note));
-      Note object = Note.getNote(this, Objects.requireNonNull(getIntent().getExtras()).getLong(db.Notes.ID));
+      Note object = Note.getNote(this, Objects.requireNonNull(getIntent().getExtras()).getInt(db.Notes.ID));
       titleET.setText(object.getTitle());
       noteET.setText(object.getNote());
     }
@@ -70,12 +70,12 @@ public class NoteEditorActivity extends AppCompatActivity implements View.OnClic
         values.put(db.Notes.NOTE, note);
         if (!hasExtra) {
           values.put(db.Notes.MARK, 0);
-          long id = dbHelper.get().insert(db.Tables.NOTES, null, values);
+          int id = (int) dbHelper.get().insert(db.Tables.NOTES, null, values);
           app.log("Note Id: " + id);
         }
         else {
           dbHelper.get().update(db.Tables.NOTES, values, db.Notes.ID + " = " +
-                  Objects.requireNonNull(getIntent().getExtras()).getLong(db.Notes.ID), null);
+                  Objects.requireNonNull(getIntent().getExtras()).getInt(db.Notes.ID), null);
         }
         finish();
       }
