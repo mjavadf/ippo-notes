@@ -7,8 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -20,6 +22,7 @@ import java.util.List;
 import java.util.Objects;
 
 import ir.mjavadf.ipponotes.adapters.NotesAdapter;
+import ir.mjavadf.ipponotes.adapters.NotesAdapterCard;
 import ir.mjavadf.ipponotes.app.DBHelper;
 import ir.mjavadf.ipponotes.app.db;
 import ir.mjavadf.ipponotes.objects.Note;
@@ -28,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
   RecyclerView recyclerView;
   FloatingActionButton addNote;
-  NotesAdapter adapter;
+  NotesAdapterCard adapter;
   List<Note> noteList = new ArrayList<>();
   DBHelper dbHelper;
   AppCompatImageView searchIcon;
@@ -54,9 +57,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     dbHelper = new DBHelper(this);
     noteList = readData();
     recyclerView = findViewById(R.id.recyclerView);
-    adapter = new NotesAdapter(this, noteList);
+//    adapter = new NotesAdapter(this, noteList);
+//    recyclerView.setAdapter(adapter);
+//    recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+    StaggeredGridLayoutManager gridLayoutManager =
+            new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+
+    adapter = new NotesAdapterCard(this, noteList);
     recyclerView.setAdapter(adapter);
-    recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    recyclerView.setLayoutManager(gridLayoutManager);
 
     addNote = findViewById(R.id.addNote);
     addNote.setOnClickListener(this);
