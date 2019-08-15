@@ -9,6 +9,8 @@ import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
@@ -63,15 +65,50 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     /* Search Box */
     searchIcon.setOnClickListener(this);
     searchBox = findViewById(R.id.searchBox);
-    searchText = findViewById(R.id.searchText);
     closeSearchBox = findViewById(R.id.closeSearchBox);
     closeSearchBox.setOnClickListener(this);
+    searchText = findViewById(R.id.searchText);
+    searchText.addTextChangedListener(new TextWatcher() {
+      @Override
+      public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+      }
+
+      @Override
+      public void onTextChanged(CharSequence s, int start, int before, int count) {
+        noteList.clear();
+        noteList.addAll(searchData(s.toString()));
+        adapter.notifyDataSetChanged();
+      }
+
+      @Override
+      public void afterTextChanged(Editable s) {
+
+      }
+    });
   }
 
   private List<Note> readData() {
     List<Note> list = new ArrayList<>();
-
     Cursor cursor = dbHelper.get().rawQuery(" SELECT * FROM " + db.Tables.NOTES, null);
+    while (cursor.moveToNext()) {
+      int id = cursor.getInt(cursor.getColumnIndexOrThrow(db.Notes.ID));
+      String title = cursor.getString(cursor.getColumnIndexOrThrow(db.Notes.TITLE));
+      String note = cursor.getString(cursor.getColumnIndexOrThrow(db.Notes.NOTE));
+      int mark = cursor.getInt(cursor.getColumnIndexOrThrow(db.Notes.MARK));
+
+      list.add(new Note(id, title, note, mark));
+    }
+
+    cursor.close();
+    return list;
+  }
+
+  private List<Note> searchData(String text) {
+    List<Note> list = new ArrayList<>();
+    Cursor cursor = dbHelper.get().rawQuery(" SELECT * FROM " + db.Tables.NOTES +
+            " WHERE " + db.Notes.TITLE + " LIKE '%" + text + "%' " +
+            " OR    " + db.Notes.NOTE  + " LIKE '%" + text + "%' ", null);
     while (cursor.moveToNext()) {
       long id = cursor.getLong(cursor.getColumnIndexOrThrow(db.Notes.ID));
       String title = cursor.getString(cursor.getColumnIndexOrThrow(db.Notes.TITLE));
