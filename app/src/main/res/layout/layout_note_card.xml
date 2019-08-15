@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_margin="@dimen/margin0_5x"
+  app:cardCornerRadius="12dp">
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/padding"
+    android:id="@+id/parent">
+
+    <android.support.v7.widget.AppCompatTextView
+      android:id="@+id/title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:lines="1"
+      android:maxLines="1"
+      android:singleLine="true"
+      android:text="@string/note_title"
+      android:textSize="@dimen/importantText"
+      android:textStyle="bold" />
+
+    <android.support.v7.widget.AppCompatTextView
+      android:id="@+id/note"
+      android:layout_marginTop="@dimen/margin0_5x"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@string/loremIpsum_oneParagraph"
+      android:textSize="@dimen/normalText" />
+
+  </LinearLayout>
+
+</android.support.v7.widget.CardView>
