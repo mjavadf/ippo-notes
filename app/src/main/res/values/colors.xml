@@ -31,5 +31,9 @@
   <color name="gradient_unmarked_end">#373B44</color>
   <!-- Gradient -->
 
+  <color name="marked_card">#FFF9C4</color>
+  <color name="unmarked_card">#FAFAFA</color>
+
+
   <color name="red_700">#D32F2F</color>
 </resources>
