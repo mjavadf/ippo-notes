@@ -10,6 +10,7 @@ public class Note {
   private String title, note;
   private int id;
   private int mark = 0;
+  private boolean selected = false;
 
   public Note() {}
 
@@ -66,5 +67,13 @@ public class Note {
     cursor.close();
 
     return object;
+  }
+
+  public boolean isSelected() {
+    return selected;
+  }
+
+  public void setSelected(boolean selected) {
+    this.selected = selected;
   }
 }

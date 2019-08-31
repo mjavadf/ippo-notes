@@ -32,7 +32,8 @@
   <!-- Gradient -->
 
   <color name="marked_card">#FFF9C4</color>
-  <color name="unmarked_card">#FAFAFA</color>
+  <color name="selected_card">#BBDEFB</color>
+  <color name="default_card_bg">#FAFAFA</color>
 
 
   <color name="red_700">#D32F2F</color>

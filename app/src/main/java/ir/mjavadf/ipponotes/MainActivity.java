@@ -27,9 +27,10 @@ import ir.mjavadf.ipponotes.adapters.NotesAdapter;
 import ir.mjavadf.ipponotes.adapters.NotesAdapterCard;
 import ir.mjavadf.ipponotes.app.DBHelper;
 import ir.mjavadf.ipponotes.app.db;
+import ir.mjavadf.ipponotes.interfaces.MultiSelectionListener;
 import ir.mjavadf.ipponotes.objects.Note;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, MultiSelectionListener {
 
   RecyclerView recyclerView;
   FloatingActionButton addNote;
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     StaggeredGridLayoutManager gridLayoutManager =
             new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
 
-    adapter = new NotesAdapterCard(this, noteList);
+    adapter = new NotesAdapterCard(this, noteList, this);
     recyclerView.setAdapter(adapter);
     recyclerView.setLayoutManager(gridLayoutManager);
 
@@ -104,12 +105,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
       }
     });
 
-    /* Multi Selection */
-    multiSelectionBar = findViewById(R.id.multiSelectionBar);
-    selectionCount = findViewById(R.id.selectionCount);
-    deleteNotes = findViewById(R.id.delete_notes);
-    markNotes = findViewById(R.id.mark_notes);
-    unmarkNotes = findViewById(R.id.unmark_notes);
+    multiSelection();
   }
 
   private List<Note> readData() {
@@ -144,6 +140,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     cursor.close();
     return list;
+  }
+
+  private void multiSelection() {
+    multiSelectionBar = findViewById(R.id.multiSelectionBar);
+    selectionCount = findViewById(R.id.selectionCount);
+    deleteNotes = findViewById(R.id.delete_notes);
+    markNotes = findViewById(R.id.mark_notes);
+    unmarkNotes = findViewById(R.id.unmark_notes);
+  }
+
+  private void closeMultiSelection() {
+    multiSelectionBar.setVisibility(View.GONE);
+    adapter.setMultiSelection(false);
+    adapter.setMultiSelectionCount(0);
+    updateList();
   }
 
   @Override
@@ -184,7 +195,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
   public void onBackPressed() {
     if (searchBox.getVisibility() == View.VISIBLE) {
       closeSearch();
+    } else if (multiSelectionBar.getVisibility() == View.VISIBLE) {
+      closeMultiSelection();
     } else
       super.onBackPressed();
+  }
+
+  @Override
+  public void onStartSelection() {
+    multiSelectionBar.setVisibility(View.VISIBLE);
+  }
+
+  @Override
+  public void onItemSelected(int position, int count) {
+    selectionCount.setText(getString(R.string.selected_items).replace("%d", count+""));
+  }
+
+  @Override
+  public void onItemDeselcted(int position, int count) {
+    selectionCount.setText(getString(R.string.selected_items).replace("%d", count+""));
+    if (count == 0) {
+      multiSelectionBar.setVisibility(View.GONE);
+    }
   }
 }
