@@ -148,6 +148,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     deleteNotes = findViewById(R.id.delete_notes);
     markNotes = findViewById(R.id.mark_notes);
     unmarkNotes = findViewById(R.id.unmark_notes);
+
+    deleteNotes.setOnClickListener(this);
+    markNotes.setOnClickListener(this);
+    unmarkNotes.setOnClickListener(this);
   }
 
   private void closeMultiSelection() {
@@ -155,6 +159,45 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     adapter.setMultiSelection(false);
     adapter.setMultiSelectionCount(0);
     updateList();
+  }
+
+  private void markAllSelected() {
+    String inString = "-1";
+    for (Note object : noteList) {
+      if (object.isSelected())
+        inString += ", " + object.getId();
+    }
+
+    String query = " UPDATE " + db.Tables.NOTES + " SET " + db.Notes.MARK + " = 1 " +
+            " WHERE " + db.Notes.ID + " IN (" + inString + ")";
+    dbHelper.get().execSQL(query);
+    closeMultiSelection();
+  }
+
+  private void unmarkAllSelected() {
+    String inString = "-1";
+    for (Note object : noteList) {
+      if (object.isSelected())
+        inString += ", " + object.getId();
+    }
+
+    String query = " UPDATE " + db.Tables.NOTES + " SET " + db.Notes.MARK + " = 0 " +
+            " WHERE " + db.Notes.ID + " IN (" + inString + ")";
+    dbHelper.get().execSQL(query);
+    closeMultiSelection();
+  }
+
+  private void deleteAllSelected() {
+    String inString = "-1";
+    for (Note object : noteList) {
+      if (object.isSelected())
+        inString += ", " + object.getId();
+    }
+
+    String query = " DELETE FROM " + db.Tables.NOTES +
+            " WHERE " + db.Notes.ID + " IN (" + inString + ")";
+    dbHelper.get().execSQL(query);
+    closeMultiSelection();
   }
 
   @Override
@@ -181,6 +224,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
       searchText.requestFocus();
     } else if (view == closeSearchBox) {
       closeSearch();
+    } else if (view == deleteNotes) {
+      deleteAllSelected();
+    } else if (view == markNotes) {
+      markAllSelected();
+    } else if (view == unmarkNotes) {
+      unmarkAllSelected();
     }
   }
 
