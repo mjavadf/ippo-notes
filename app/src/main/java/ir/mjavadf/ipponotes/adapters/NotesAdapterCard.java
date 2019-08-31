@@ -29,8 +29,8 @@ public class NotesAdapterCard extends RecyclerView.Adapter<NotesAdapterCard.Card
   private DBHelper dbHelper;
   MultiSelectionListener listener;
 
-  private boolean multiSelection      = false;
-  private int     multiSelectionCount = 0;
+  private boolean multiSelection = false;
+  private int multiSelectionCount = 0;
 
   public boolean isMultiSelection() {
     return multiSelection;
@@ -67,7 +67,9 @@ public class NotesAdapterCard extends RecyclerView.Adapter<NotesAdapterCard.Card
     holder.title.setText(objects.get(i).getTitle());
     holder.note.setText(objects.get(i).getNote());
 
-    if (objects.get(i).getMark() == 1) {
+    if (objects.get(i).isSelected())
+      holder.parent.setBackgroundColor(activity.getResources().getColor(R.color.selected_card));
+    else if (objects.get(i).getMark() == 1) {
       holder.parent.setBackgroundColor(activity.getResources().getColor(R.color.marked_card));
     } else {
       holder.parent.setBackgroundColor(activity.getResources().getColor(R.color.default_card_bg));
@@ -115,7 +117,6 @@ public class NotesAdapterCard extends RecyclerView.Adapter<NotesAdapterCard.Card
           return;
         }
       }
-
 
 
       Intent intent = new Intent(activity, ShowActivity.class);
