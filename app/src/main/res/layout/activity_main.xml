@@ -4,14 +4,61 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  tools:context=".MainActivity"
-  android:background="@color/blackTextDividers">
+  android:background="@color/blackTextDividers"
+  tools:context=".MainActivity">
 
   <android.support.design.widget.AppBarLayout
     android:id="@+id/actionBar"
     android:layout_width="match_parent"
     android:layout_height="56dp"
     android:background="@color/colorPrimary">
+
+    <RelativeLayout
+      android:id="@+id/multiSelectionBar"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="@color/colorAccent"
+      android:padding="@dimen/padding0_5x"
+      android:visibility="gone">
+
+      <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/selectionCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:text="@string/selected_items"
+        android:textColor="@color/whiteText"
+        android:textSize="@dimen/importantText"
+        android:textStyle="bold" />
+
+      <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/delete_notes"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        app:srcCompat="@drawable/ic_delete_white_24" />
+
+      <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/mark_notes"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/margin0_5x"
+        android:layout_toStartOf="@id/delete_notes"
+        app:srcCompat="@drawable/ic_mark_white_24" />
+
+      <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/unmark_notes"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/margin0_5x"
+        android:layout_toStartOf="@id/mark_notes"
+        app:srcCompat="@drawable/ic_unmark_white_24" />
+
+    </RelativeLayout>
 
     <RelativeLayout
       android:layout_width="match_parent"
@@ -75,14 +122,16 @@
         </LinearLayout>
       </android.support.v7.widget.CardView>
     </RelativeLayout>
+
+
   </android.support.design.widget.AppBarLayout>
 
   <android.support.v7.widget.RecyclerView
-    android:layout_margin="@dimen/margin0_5x"
     android:id="@+id/recyclerView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_below="@id/actionBar" />
+    android:layout_below="@id/actionBar"
+    android:layout_margin="@dimen/margin0_5x" />
 
   <android.support.design.widget.FloatingActionButton
     android:id="@+id/addNote"

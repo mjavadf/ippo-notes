@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +15,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
 
@@ -42,6 +44,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
   CardView searchBox;
   MaterialEditText searchText;
   AppCompatImageView closeSearchBox;
+
+  /* Multi Selection Bar */
+  RelativeLayout multiSelectionBar;
+  AppCompatTextView selectionCount;
+  AppCompatImageView deleteNotes, markNotes, unmarkNotes;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +103,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
       }
     });
+
+    /* Multi Selection */
+    multiSelectionBar = findViewById(R.id.multiSelectionBar);
+    selectionCount = findViewById(R.id.selectionCount);
+    deleteNotes = findViewById(R.id.delete_notes);
+    markNotes = findViewById(R.id.mark_notes);
+    unmarkNotes = findViewById(R.id.unmark_notes);
   }
 
   private List<Note> readData() {
