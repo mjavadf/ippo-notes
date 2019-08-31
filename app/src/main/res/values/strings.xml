@@ -15,4 +15,6 @@
   <string name="edit_note">Edit Note</string>
   <string name="search">Search</string>
   <string name="selected_items">Selected Items: %d</string>
+  <string name="snackbar_dialog">%d item(s) deleted</string>
+  <string name="undo">undo</string>
 </resources>

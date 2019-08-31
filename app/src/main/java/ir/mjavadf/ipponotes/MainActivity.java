@@ -1,8 +1,11 @@
 package ir.mjavadf.ipponotes;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
@@ -32,10 +35,12 @@ import ir.mjavadf.ipponotes.objects.Note;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, MultiSelectionListener {
 
+  CoordinatorLayout coordinatorLayout;
   RecyclerView recyclerView;
   FloatingActionButton addNote;
   NotesAdapterCard adapter;
   List<Note> noteList = new ArrayList<>();
+  List<Note> tempList = new ArrayList<>();
   DBHelper dbHelper;
   AppCompatImageView searchIcon;
 
@@ -62,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
   }
 
   private void initViews() {
+    coordinatorLayout = findViewById(R.id.myCoordinatorLayout);
     dbHelper = new DBHelper(this);
     noteList = readData();
     recyclerView = findViewById(R.id.recyclerView);
@@ -128,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     List<Note> list = new ArrayList<>();
     Cursor cursor = dbHelper.get().rawQuery(" SELECT * FROM " + db.Tables.NOTES +
             " WHERE " + db.Notes.TITLE + " LIKE '%" + text + "%' " +
-            " OR    " + db.Notes.NOTE  + " LIKE '%" + text + "%' ", null);
+            " OR    " + db.Notes.NOTE + " LIKE '%" + text + "%' ", null);
     while (cursor.moveToNext()) {
       int id = cursor.getInt(cursor.getColumnIndexOrThrow(db.Notes.ID));
       String title = cursor.getString(cursor.getColumnIndexOrThrow(db.Notes.TITLE));
@@ -188,16 +194,56 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
   }
 
   private void deleteAllSelected() {
+    int count = adapter.getMultiSelectionCount();
+    int[] tempIDs = new int[count];
+    int c = 0; // counter
     String inString = "-1";
     for (Note object : noteList) {
-      if (object.isSelected())
+      if (object.isSelected()) {
         inString += ", " + object.getId();
+        tempIDs[c] = object.getId();
+        c++;
+      }
     }
+
+    tempList = createTempList(tempIDs);
 
     String query = " DELETE FROM " + db.Tables.NOTES +
             " WHERE " + db.Notes.ID + " IN (" + inString + ")";
     dbHelper.get().execSQL(query);
+
     closeMultiSelection();
+
+    Snackbar snackbar = Snackbar.make(coordinatorLayout,
+            getString(R.string.snackbar_dialog).replace("%d", count + ""),
+            Snackbar.LENGTH_SHORT);
+    snackbar.setAction(getString(R.string.undo), new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        undo();
+      }
+    });
+    snackbar.show();
+  }
+
+  private void undo() {
+    for (Note item : tempList) {
+      ContentValues values = new ContentValues();
+      values.put(db.Notes.ID, item.getId());
+      values.put(db.Notes.TITLE, item.getTitle());
+      values.put(db.Notes.NOTE, item.getNote());
+      values.put(db.Notes.MARK, item.getMark());
+      dbHelper.get().insert(db.Tables.NOTES, null, values);
+      updateList();
+    }
+  }
+
+  private List<Note> createTempList(int[] idList) {
+    List<Note> temp = new ArrayList<>();
+    for (int id : idList) {
+      temp.add(Note.getNote(this, id));
+    }
+    return temp;
   }
 
   @Override
@@ -257,12 +303,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
   @Override
   public void onItemSelected(int position, int count) {
-    selectionCount.setText(getString(R.string.selected_items).replace("%d", count+""));
+    selectionCount.setText(getString(R.string.selected_items).replace("%d", count + ""));
   }
 
   @Override
   public void onItemDeselcted(int position, int count) {
-    selectionCount.setText(getString(R.string.selected_items).replace("%d", count+""));
+    selectionCount.setText(getString(R.string.selected_items).replace("%d", count + ""));
     if (count == 0) {
       multiSelectionBar.setVisibility(View.GONE);
     }
